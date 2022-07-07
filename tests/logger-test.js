@@ -13,13 +13,6 @@ exports.testLogToFile = async () => {
     assertFileContainsString(tempFile, msg);
 };
 
-exports.testLogToStdout = async () => {
-    const logger = new Logger(process.stdout);
-    const msg = "This is a test message";
-    await logger.log(msg);
-    assertStdoutContainsString(msg);
-};
-
 /**
  * @returns {string} The path to the temporary file
  */
@@ -40,12 +33,4 @@ function assertFileContainsString(filePath, str) {
         contents.includes(str),
         `File ${filePath} does not contain string: ${str}`
     );
-}
-
-/**
- * @param {string} str
- */
-function assertStdoutContainsString(str) {
-    const contents = process.stdout.read(); 
-    assert(contents.includes(str), `Stream does not contain string: ${str}`);
 }
