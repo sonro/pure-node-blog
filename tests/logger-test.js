@@ -3,15 +3,29 @@ const os = require("os");
 const fs = require("fs");
 const assert = require("assert");
 const { Logger } = require("../src/logger.js");
+const Stream = require("stream");
 
 exports.testLogToFile = async () => {
     const tempFile = createTempFile();
     const stream = fs.createWriteStream(tempFile);
-    const logger = new Logger(stream);
-    const msg = "This is a test message";
-    await logger.log(msg);
+    const msg = await createLoggerAndLogMessage(stream);
     assertFileContainsString(tempFile, msg);
 };
+
+exports.testLogToStream = async () => {
+    const stream = new TestStream();
+    const msg = await createLoggerAndLogMessage(stream);
+    assertTestStreamContainsString(stream, msg);
+};
+
+exports.testLogToFileAndStream = async () => {
+    const tempFile = createTempFile();
+    const fileStream = fs.createWriteStream(tempFile);
+    const testStream = new TestStream();
+    const msg = await createLoggerAndLogMessage(fileStream, testStream);
+    assertFileContainsString(tempFile, msg);
+    assertTestStreamContainsString(testStream, msg);
+}
 
 /**
  * @returns {string} The path to the temporary file
@@ -23,14 +37,68 @@ function createTempFile() {
     return filePath;
 }
 
+class TestStream extends Stream {
+    constructor() {
+        super();
+        this.buffer = "";
+        this.stream = new Stream.Writable();
+        this.stream._write = (chunk, encoding, next) => {
+            this.buffer += chunk.toString();
+            next();
+        };
+    }
+
+    /**
+     * @returns {string}
+     */
+    read() {
+        return this.buffer;
+    }
+
+    /**
+     * @param {string} msg 
+     */
+    write(msg, callback) {
+        this.stream.write(msg, callback);
+    }
+}
+
+/**
+ * @param {Stream} stream 
+ * @returns {string}
+ */
+async function createLoggerAndLogMessage(...stream) {
+    const logger = new Logger(...stream);
+    const msg = "This is a test message";
+    await logger.log(msg);
+    return msg;
+}
+
 /**
  * @param {string} filePath
  * @param {string} str
  */
 function assertFileContainsString(filePath, str) {
     const contents = fs.readFileSync(filePath, "utf8");
+    assertStringContains(str, contents);
+}
+
+/**
+ * @param {TestStream} stream
+ * @param {string} str
+ */
+function assertTestStreamContainsString(stream, str) {
+    const contents = stream.read();
+    assertStringContains(str, contents);
+}
+
+/**
+ * @param {string} expected 
+ * @param {string} actual 
+ */
+function assertStringContains(expected, actual) {
     assert(
-        contents.includes(str),
-        `File ${filePath} does not contain string: ${str}`
+        actual.includes(expected),
+        `Stream does not contain the correct string`
     );
 }
