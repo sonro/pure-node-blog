@@ -1,12 +1,12 @@
 const assert = require("assert");
 const http = require("http");
-const { runServer } = require("../src/server.js");
+const { runServer } = require("../../src/server.js");
 
 const TEST_PORT = 3003;
 
 exports.testRunServerDefaultRoute = () => {
     runTestOnServer(() => {
-        assert.equal(true, true);
+        assert(true);
     });
 };
 

@@ -87,13 +87,12 @@ class Fail {
  */
 class TestSuite {
     /**
-     * {string} The name of the test suite
+     * @prop {string} the name of the test suite
      */
-
     name;
 
     /**
-     * {Array<function>} tests to run
+     * @prop {Array<function>} tests to run
      */
     tests;
 
@@ -103,7 +102,11 @@ class TestSuite {
      * @param {string} suffix to remove from the file name
      */
     constructor(filePath, suffix) {
-        this.name = path.basename(filePath, suffix).toUpperCase();
+        const testDir = __dirname + "/tests/";
+        const suffixIndex = filePath.indexOf(suffix);
+        this.name = filePath
+            .substring(testDir.length, suffixIndex)
+            .toUpperCase();
         this.tests = require(filePath);
     }
 }

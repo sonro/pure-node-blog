@@ -2,7 +2,7 @@ const path = require("path");
 const os = require("os");
 const fs = require("fs");
 const assert = require("assert");
-const { Logger } = require("../src/logger.js");
+const { Logger } = require("../../src/logger.js");
 const Stream = require("stream");
 
 exports.testLogToFile = async () => {
@@ -37,6 +37,10 @@ function createTempFile() {
     return filePath;
 }
 
+/**
+ * Readable and Writable stream for log testing
+ * @extends Stream
+ */
 class TestStream extends Stream {
     constructor() {
         super();
