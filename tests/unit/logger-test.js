@@ -27,6 +27,11 @@ exports.testLogToFileAndStream = async () => {
     assertTestStreamContainsString(testStream, msg);
 }
 
+exports.testEmptyLoggerWorks = () => {
+    const logger = Logger.empty();
+    logger.log("test");
+}
+
 /**
  * @returns {string} The path to the temporary file
  */

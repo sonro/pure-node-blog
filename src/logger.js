@@ -9,6 +9,14 @@ class Logger {
     }
 
     /**
+     * Convienince function to create an empty logger
+     * @returns {Logger}
+     */
+    static empty() {
+        return new Logger();
+    }
+
+    /**
      * @param {string} message 
      */
     async log(message) {
