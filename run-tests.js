@@ -62,7 +62,6 @@ function logFail() {
  */
 class Fail {
     /**
-     *
      * @param {string} suiteName
      * @param {string} testName
      * @param {Error} error thrown by the test
@@ -87,17 +86,18 @@ class Fail {
  */
 class TestSuite {
     /**
-     * @prop {string} the name of the test suite
+     * Name of the test suite
+     * @type {string} 
      */
     name;
 
     /**
-     * @prop {Array<function>} tests to run
+     * Tests to run
+     * @type {Array<function>} 
      */
     tests;
 
     /**
-     *
      * @param {string} filePath
      * @param {string} suffix to remove from the file name
      */

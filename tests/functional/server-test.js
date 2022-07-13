@@ -1,7 +1,8 @@
 const assert = require("assert");
 const http = require("http");
 const { runServer } = require("../../src/server.js");
-const { Logger } = require("../../src/logger");
+const { ServiceContainer } = require("../../src/service/container.js");
+const { Logger } = require("../../src/service/logger.js");
 
 const TEST_PORT = 3003;
 const TEST_HOST = "localhost";
@@ -69,8 +70,9 @@ async function runOnTestServer(testFunction) {
  */
 function startTestServer() {
     const logger = Logger.empty();
+    const container = new ServiceContainer(logger);
     return new Promise((resolve, reject) => {
-        const server = runServer(TEST_PORT, logger, () => resolve(server));
+        const server = runServer(TEST_PORT, container, () => resolve(server));
         server.on("error", (err) => reject(err));
     });
 }

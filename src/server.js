@@ -1,39 +1,44 @@
 const http = require("http");
-const Logger = require("./logger.js");
+const { ServiceContainer } = require("./service/container.js");
+const { HttpMessage } = require("./http/http-message.js");
 
 /**
  * @param {int} port
- * @param {Logger} logger
+ * @param {ServiceContainer} container
  * @param {function} callback
  * @returns {http.Server} The HTTP Server
  */
-function runServer(port, logger, callback) {
-    const server = createHttpServer(logger);
+function runServer(port, container, callback) {
+    const server = createHttpServer(container);
     server.listen(port, callback);
     return server;
 }
 
 /**
  * Setup and create the HTTP server for web access of the app.
- * @param {Logger} logger
+ * @param {ServiceContainer} container
  * @returns {http.Server} A HTTP Server
  */
-function createHttpServer(logger) {
+function createHttpServer(container) {
     const _options = {};
     return http.createServer(_options, (request, response) => {
-        handleRequest(request, response, logger);
+        const message = new HttpMessage(request, response);
+        handleRequest(message, container);
     });
 }
 
 /**
  * Handle every web server request
- * @param {http.IncomingMessage} request
- * @param {http.ServerResponse} response
- * @param {Logger} logger
+ * @param {HttpMessage} message
+ * @param {ServiceContainer} container
  */
-function handleRequest(request, response, logger) {
-    response.end();
-    logRequest(request, response, logger) 
+function handleRequest(message, container) {
+    // guarantee the server's response is ready to be sent
+    if (message.response.writable) {
+        message.response.end();
+    }
+
+    logRequest(message.request, message.response, container.logger);
 }
 
 /**

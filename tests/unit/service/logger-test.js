@@ -2,7 +2,7 @@ const path = require("path");
 const os = require("os");
 const fs = require("fs");
 const assert = require("assert");
-const { Logger } = require("../../src/logger.js");
+const { Logger } = require("../../../src/service/logger.js");
 const Stream = require("stream");
 
 exports.testLogToFile = async () => {
