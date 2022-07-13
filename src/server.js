@@ -21,7 +21,7 @@ function runServer(port, logger, callback) {
 function createHttpServer(logger) {
     const _options = {};
     return http.createServer(_options, (request, response) => {
-        serverEntrypoint(request, response, logger);
+        handleRequest(request, response, logger);
     });
 }
 
@@ -31,7 +31,7 @@ function createHttpServer(logger) {
  * @param {http.ServerResponse} response
  * @param {Logger} logger
  */
-function serverEntrypoint(request, response, logger) {
+function handleRequest(request, response, logger) {
     response.end();
     logRequest(request, response, logger) 
 }
@@ -51,3 +51,4 @@ function logRequest(request, response, logger) {
 }
 
 exports.runServer = runServer;
+exports.handleRequest = handleRequest;

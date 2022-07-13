@@ -66,6 +66,7 @@ class TestStream extends Stream {
 
     /**
      * @param {string} msg 
+     * @param {function} callback
      */
     write(msg, callback) {
         this.stream.write(msg, callback);
@@ -73,11 +74,11 @@ class TestStream extends Stream {
 }
 
 /**
- * @param {Stream} stream 
+ * @param {...Stream} streams
  * @returns {string}
  */
-async function createLoggerAndLogMessage(...stream) {
-    const logger = new Logger(...stream);
+async function createLoggerAndLogMessage(...streams) {
+    const logger = new Logger(...streams);
     const msg = "This is a test message";
     await logger.log(msg);
     return msg;
@@ -93,11 +94,11 @@ function assertFileContainsString(filePath, str) {
 }
 
 /**
- * @param {TestStream} stream
+ * @param {TestStream} testStream
  * @param {string} str
  */
-function assertTestStreamContainsString(stream, str) {
-    const contents = stream.read();
+function assertTestStreamContainsString(testStream, str) {
+    const contents = testStream.read();
     assertStringContains(str, contents);
 }
 
