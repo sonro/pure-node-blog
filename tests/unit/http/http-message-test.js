@@ -27,3 +27,20 @@ exports.testIsJsonFalse = () => {
     const message = new HttpMessage(req, null);
     assert.equal(message.isJson(), false);
 };
+
+exports.testJson = () => {
+    const req = new http.IncomingMessage();
+    const res = new http.ServerResponse(req);
+    const message = new HttpMessage(req, res);
+
+    const body = { message: "test" };
+    message.json(body);
+    res.end();
+
+    const actual = res.getHeader("content-type");
+    assert.equal(actual, "application/json");
+
+    const expected = JSON.stringify(body);
+    const output  = res.outputData[0].data;
+    assert(output.includes(expected));
+};

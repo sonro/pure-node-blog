@@ -40,6 +40,16 @@ class HttpMessage {
     isJson() {
         return this.request.headers["content-type"] === HTTP_JSON_TYPE;
     }
+
+    /**
+     * Write data as into JSON response
+     * @param {Object} data
+     */
+    json(data) {
+        this.response.setHeader("Content-Type", HTTP_JSON_TYPE);
+        const body = JSON.stringify(data)
+        this.response.write(body);
+    }
 }
 
 exports.HttpMessage = HttpMessage;
