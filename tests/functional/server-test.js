@@ -13,8 +13,7 @@ exports.testDefaultRoute = async () => {
 };
 
 /**
- * 
- * @param {http.IncomingMessage} res 
+ * @param {http.IncomingMessage} res
  */
 function assertStatusOk(res) {
     assert.equal(
@@ -26,10 +25,10 @@ function assertStatusOk(res) {
 
 /**
  * Send a request to the application's server
- * 
+ *
  * Create a test version of the server, send the caller's request to it,
  * shut down the test server, return the response.
- * 
+ *
  * @async
  * @param {string} method - HTTP method
  * @param {string} path - Request path

@@ -25,12 +25,12 @@ exports.testLogToFileAndStream = async () => {
     const msg = await createLoggerAndLogMessage(fileStream, testStream);
     assertFileContainsString(tempFile, msg);
     assertTestStreamContainsString(testStream, msg);
-}
+};
 
 exports.testEmptyLoggerWorks = () => {
     const logger = Logger.empty();
     logger.log("test");
-}
+};
 
 /**
  * @returns {string} The path to the temporary file
@@ -65,7 +65,7 @@ class TestStream extends Stream {
     }
 
     /**
-     * @param {string} msg 
+     * @param {string} msg
      * @param {function} callback
      */
     write(msg, callback) {
@@ -103,8 +103,8 @@ function assertTestStreamContainsString(testStream, str) {
 }
 
 /**
- * @param {string} expected 
- * @param {string} actual 
+ * @param {string} expected
+ * @param {string} actual
  */
 function assertStringContains(expected, actual) {
     assert(
