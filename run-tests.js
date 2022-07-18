@@ -12,7 +12,7 @@ async function main() {
 
     const suites = loadTestSuites();
     const fails = [];
-    console.log("Running tests...");
+    console.log("Running tests");
 
     for (const suite of suites) {
         for (const [name, test] of Object.entries(suite.tests)) {
