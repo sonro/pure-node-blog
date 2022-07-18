@@ -5,12 +5,20 @@ const path = require("path");
  * Run all tests and print negative results
  */
 async function main() {
+    let filter = null;
+    if (process.argv.length == 3) {
+        filter = process.argv[2];
+    }
+
     const suites = loadTestSuites();
     const fails = [];
     console.log("Running tests...");
 
     for (const suite of suites) {
         for (const [name, test] of Object.entries(suite.tests)) {
+            if (filter && name != filter) {
+                continue;
+            }
             try {
                 await test();
                 logSuccess();
