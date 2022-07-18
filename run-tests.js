@@ -35,6 +35,8 @@ async function main() {
     for (const fail of fails) {
         fail.print();
     }
+
+    process.exit(fails.length);
 }
 
 /**
