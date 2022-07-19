@@ -23,7 +23,7 @@ function createHttpServer(container) {
     const _options = {};
     return http.createServer(_options, (request, response) => {
         const message = new HttpMessage(request, response);
-        handleRequest(message, container);
+        request.on("end", () => handleRequest(message, container));
     });
 }
 
