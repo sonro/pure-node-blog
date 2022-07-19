@@ -97,13 +97,13 @@ class Fail {
 class TestSuite {
     /**
      * Name of the test suite
-     * @type {string} 
+     * @type {string}
      */
     name;
 
     /**
      * Tests to run
-     * @type {Array<function>} 
+     * @type {Array<function>}
      */
     tests;
 

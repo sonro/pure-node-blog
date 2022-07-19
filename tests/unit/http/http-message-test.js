@@ -1,6 +1,4 @@
 const assert = require("assert");
-const http = require("http");
-const { HttpMessage } = require("../../../src/http/http-message");
 const { createTestMessage, createTestMessageJson } = require("../../utility");
 
 exports.testWantsJsonTrue = () => {
