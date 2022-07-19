@@ -17,12 +17,31 @@ class HttpMessage {
     response;
 
     /**
+     * Raw request body string
+     * @type {string?}
+     */
+    requestBody;
+
+    /**
+     * Data object from request body
+     * @type {object?}
+     */
+    requestData;
+
+    /**
      * @param {http.IncomingMessage} request
      * @param {http.ServerResponse} response
      */
     constructor(request, response) {
         this.request = request;
         this.response = response;
+
+        let data = "";
+        this.request.on("data", (chunk) => (data += chunk));
+        this.request.on("end", () => {
+            this.requestBody = data;
+            this.requestData = dataFromRequestBody(request, data);
+        });
     }
 
     /**
@@ -38,7 +57,7 @@ class HttpMessage {
      * @returns {boolean}
      */
     isJson() {
-        return this.request.headers["content-type"] === HTTP_JSON_TYPE;
+        return isRequestJson(this.request);
     }
 
     /**
@@ -47,9 +66,30 @@ class HttpMessage {
      */
     json(data) {
         this.response.setHeader("Content-Type", HTTP_JSON_TYPE);
-        const body = JSON.stringify(data)
+        const body = JSON.stringify(data);
         this.response.write(body);
     }
+}
+
+/**
+ * @param {http.IncomingMessage} req
+ * @returns {boolean}
+ */
+function isRequestJson(req) {
+    return req.headers["content-type"] === HTTP_JSON_TYPE;
+}
+
+/**
+ * @param {http.IncomingMessage} req
+ * @param {string} body
+ * @param {Object?}
+ */
+function dataFromRequestBody(req, body) {
+    const reqIsJson = isRequestJson(req);
+    if (reqIsJson) {
+        return JSON.parse(body);
+    }
+    return null;
 }
 
 exports.HttpMessage = HttpMessage;
