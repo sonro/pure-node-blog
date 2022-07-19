@@ -47,3 +47,8 @@ exports.testPostJsonData = () => {
     assert.equal(message.requestBody, JSON.stringify(data));
     assert.equal(message.requestData.name, data.name);
 };
+
+exports.testNoRequestBody = () => {
+    const message = createTestMessage();
+    assert.equal(message.requestBody, "");
+};

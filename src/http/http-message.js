@@ -18,15 +18,15 @@ class HttpMessage {
 
     /**
      * Raw request body string
-     * @type {string?}
+     * @type {string}
      */
-    requestBody;
+    requestBody = "";
 
     /**
      * Data object from request body
-     * @type {object?}
+     * @type {object}
      */
-    requestData;
+    requestData = {};
 
     /**
      * @param {http.IncomingMessage} request
@@ -82,14 +82,14 @@ function isRequestJson(req) {
 /**
  * @param {http.IncomingMessage} req
  * @param {string} body
- * @param {Object?}
+ * @param {Object}
  */
 function dataFromRequestBody(req, body) {
     const reqIsJson = isRequestJson(req);
     if (reqIsJson) {
         return JSON.parse(body);
     }
-    return null;
+    return {};
 }
 
 exports.HttpMessage = HttpMessage;
