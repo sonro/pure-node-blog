@@ -1,6 +1,6 @@
 const http = require("http");
 const { Socket } = require("net");
-const { HttpMessage } = require("../src/http/http-message");
+const { HttpMessage } = require("../../src/http/http-message");
 
 const APPLICATION_JSON = "application/json";
 
