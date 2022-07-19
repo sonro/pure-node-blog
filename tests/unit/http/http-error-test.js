@@ -1,6 +1,7 @@
 const assert = require("assert");
 const http = require("http");
 const { HttpError } = require("../../../src/http/http-error");
+const errorUtil = require("../../utility/http-error");
 
 exports.testNewHttpErrorEmptyIsInternalError = () => {
     const error = new HttpError();
@@ -36,17 +37,17 @@ exports.testInternalErrorDefault = () => {
 };
 
 exports.testInternalErrorDefaultDebug = () => {
-    runFunctionInDebugEnv(defaultInternalErrorTest);
+    errorUtil.runFunctionInDebugEnv(defaultInternalErrorTest);
 };
 
 exports.testInternalErrorCause = () => {
-    const error = createCausedError();
+    const error = errorUtil.createCausedError();
     assertErrorStatusAndMessage(error, 500);
 };
 
 exports.testInternalErrorCauseDebug = () => {
-    runFunctionInDebugEnv(() => {
-        const error = createCausedError();
+    errorUtil.runFunctionInDebugEnv(() => {
+        const error = errorUtil.createCausedError();
         assertErrorStatusAndCombinedMessage(error, 500, error.cause.message);
     });
 };
@@ -58,7 +59,7 @@ exports.testInternalErrorMessage = () => {
 };
 
 exports.testInternalErrorMessageDebug = () => {
-    runFunctionInDebugEnv(() => {
+    errorUtil.runFunctionInDebugEnv(() => {
         const msg = "Internal error message";
         const error = HttpError.internalError(msg);
         assertErrorStatusAndCombinedMessage(error, 500, msg);
@@ -67,14 +68,14 @@ exports.testInternalErrorMessageDebug = () => {
 
 exports.testInternalErrorCauseAndMessage = () => {
     const msg = "Internal error message";
-    const error = createCausedError(msg);
+    const error = errorUtil.createCausedError(msg);
     assertErrorStatusAndMessage(error, 500);
 };
 
 exports.testInternalErrorCauseAndMessageDebug = () => {
-    runFunctionInDebugEnv(() => {
+    errorUtil.runFunctionInDebugEnv(() => {
         const msg = "Internal error message";
-        const error = createCausedError(msg);
+        const error = errorUtil.createCausedError(msg);
         const expectedMsg = `${msg}: ${error.cause.message}`;
         assertErrorStatusAndCombinedMessage(error, 500, expectedMsg);
     });
@@ -119,24 +120,6 @@ function defaultInternalErrorTest() {
 }
 
 /**
- * @param {string?} message
- * @returns {HttpError}
- */
-function createCausedError(message = null) {
-    const cause = new Error("This error is the cause");
-    return HttpError.internalError(cause, message);
-}
-
-/**
- * @param {function} testFunction
- */
-function runFunctionInDebugEnv(testFunction) {
-    process.env.NODE_DEBUG = 1;
-    testFunction();
-    process.env.NODE_DEBUG = 0;
-}
-
-/**
  * @param {HttpError} error
  * @param {int} status
  */
@@ -152,15 +135,6 @@ function assertErrorStatusAndMessage(error, status) {
  */
 function assertErrorStatusAndCombinedMessage(error, status, message) {
     assert.equal(error.status, status);
-    const expected = createCombinedMessage(status, message);
+    const expected = errorUtil.createCombinedMessage(status, message);
     assert.equal(error.message, expected);
-}
-
-/**
- * @param {int} status
- * @param {string} originalMessage
- * @returns {string}
- */
-function createCombinedMessage(status, originalMessage) {
-    return `${http.STATUS_CODES[status]}: ${originalMessage}`;
 }
