@@ -48,9 +48,9 @@ async function main() {
  */
 function loadTestSuites() {
     const suffix = "-test.js";
-    return getAllFilePaths("./tests").map(
-        (file) => new TestSuite(file, suffix)
-    );
+    return getAllFilePaths("./tests")
+        .filter((file) => file.endsWith(suffix))
+        .map((file) => new TestSuite(file, suffix));
 }
 
 /**
