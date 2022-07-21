@@ -58,6 +58,26 @@ function createTestMessagePostJson(data) {
 }
 
 /**
+ * @param {HttpMessage} message 
+ * @returns {Object}
+ */
+function getResponseDataFromJsonMessage(message) {
+    const body = getResponseBodyFromMessage(message);
+    return JSON.parse(body);
+}
+
+/**
+ * @param {HttpMessage} message 
+ * @returns {string}
+ */
+function getResponseBodyFromMessage(message) {
+    const res = message.response.outputData[0].data;
+    const doubleLine = "\r\n\r\n";
+    const bodyIndex = res.indexOf(doubleLine) + doubleLine.length;
+    return res.substring(bodyIndex);
+}
+
+/**
  * @param {TestMessageOptions} options
  * @param {http.IncomingMessage} req
  */
@@ -109,3 +129,5 @@ function urlFromOptions(options) {
 exports.createTestMessage = createTestMessage;
 exports.createTestMessageJson = createTestMessagePostJson;
 exports.TestMessageOptions = TestMessageOptions;
+exports.getResponseDataFromJsonMessage = getResponseDataFromJsonMessage;
+exports.getResponseBodyFromMessage = getResponseBodyFromMessage;
