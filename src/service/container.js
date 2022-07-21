@@ -1,3 +1,6 @@
+const { ErrorPageGenerator } = require("./error-page-generator");
+const { Logger } = require("./logger");
+
 /**
  * Application services for use in server controllers.
  */
@@ -8,10 +11,17 @@ class ServiceContainer {
     logger;
 
     /**
-     * @param {Logger} logger
+     * @type {ErrorPageGenerator}
      */
-    constructor(logger) {
+    errorPageGenerator;
+
+    /**
+     * @param {Logger} logger
+     * @param {ErrorPageGenerator} generator
+     */
+    constructor(logger, generator) {
         this.logger = logger;
+        this.errorPageGenerator = generator;
     }
 }
 

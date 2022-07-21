@@ -2,7 +2,9 @@ const assert = require("assert");
 const http = require("http");
 const { runServer } = require("../../src/server.js");
 const { ServiceContainer } = require("../../src/service/container.js");
+const { ErrorPageGenerator } = require("../../src/service/error-page-generator.js");
 const { Logger } = require("../../src/service/logger.js");
+const { HTML_ERROR_TEMPLATE } = require("../utility/http-error.js");
 
 const TEST_PORT = 3003;
 const TEST_HOST = "localhost";
@@ -69,7 +71,8 @@ async function runOnTestServer(testFunction) {
  */
 function startTestServer() {
     const logger = Logger.empty();
-    const container = new ServiceContainer(logger);
+    const generator = new ErrorPageGenerator(HTML_ERROR_TEMPLATE);
+    const container = new ServiceContainer(logger, generator);
     return new Promise((resolve, reject) => {
         const server = runServer(TEST_PORT, container, () => resolve(server));
         server.on("error", (err) => reject(err));

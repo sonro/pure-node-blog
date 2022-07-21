@@ -1,6 +1,16 @@
 const http = require("http");
 const { HttpError } = require("../../src/http/http-error");
 
+const HTML_ERROR_TEMPLATE = `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{{title}}</title>
+  </head>
+  <body>
+    <h1>{{message}}</h1>
+  </body>
+</html>`;
+
 /**
  * @param {string?} message
  * @returns {HttpError}
@@ -31,3 +41,4 @@ function createCombinedMessage(status, originalMessage) {
 exports.createCausedError = createCausedError;
 exports.runFunctionInDebugEnv = runFunctionInDebugEnv;
 exports.createCombinedMessage = createCombinedMessage;
+exports.HTML_ERROR_TEMPLATE = HTML_ERROR_TEMPLATE;
