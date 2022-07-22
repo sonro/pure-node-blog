@@ -16,12 +16,19 @@ class ServiceContainer {
     errorPageGenerator;
 
     /**
+     * @type {Object}
+     */
+    publicAssets;
+
+    /**
      * @param {Logger} logger
      * @param {ErrorPageGenerator} generator
+     * @param {Object} publicAssets
      */
-    constructor(logger, generator) {
+    constructor(logger, generator, publicAssets) {
         this.logger = logger;
         this.errorPageGenerator = generator;
+        this.publicAssets = publicAssets;
     }
 }
 

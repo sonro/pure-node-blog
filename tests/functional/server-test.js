@@ -1,13 +1,18 @@
 const assert = require("assert");
 const http = require("http");
+const path = require("path");
+const { loadPublicAssets } = require("../../src/http/public-assets.js");
 const { runServer } = require("../../src/server.js");
 const { ServiceContainer } = require("../../src/service/container.js");
-const { ErrorPageGenerator } = require("../../src/service/error-page-generator.js");
+const {
+    ErrorPageGenerator,
+} = require("../../src/service/error-page-generator.js");
 const { Logger } = require("../../src/service/logger.js");
 const { HTML_ERROR_TEMPLATE } = require("../utility/http-error.js");
 
 const TEST_PORT = 3003;
 const TEST_HOST = "localhost";
+const PUBLIC_ASSET_DIR = path.resolve(__dirname, "../../public");
 
 exports.testDefaultRoute = async () => {
     const res = await testReq("GET", "/");
@@ -69,10 +74,11 @@ async function runOnTestServer(testFunction) {
  * Start a test version of the application's server
  * @returns {Promise<http.Server>}
  */
-function startTestServer() {
+async function startTestServer() {
     const logger = Logger.empty();
     const generator = new ErrorPageGenerator(HTML_ERROR_TEMPLATE);
-    const container = new ServiceContainer(logger, generator);
+    const publicAssets = await loadPublicAssets(PUBLIC_ASSET_DIR);
+    const container = new ServiceContainer(logger, generator, publicAssets);
     return new Promise((resolve, reject) => {
         const server = runServer(TEST_PORT, container, () => resolve(server));
         server.on("error", (err) => reject(err));

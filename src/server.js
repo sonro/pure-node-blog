@@ -1,6 +1,7 @@
 const http = require("http");
 const { ServiceContainer } = require("./service/container.js");
 const { HttpMessage } = require("./http/http-message.js");
+const { routeRequest } = require("./http/route.js");
 
 /**
  * @param {int} port
@@ -32,27 +33,31 @@ function createHttpServer(container) {
  * @param {HttpMessage} message
  * @param {ServiceContainer} container
  */
-function handleRequest(message, container) {
+async function handleRequest(message, container) {
+    const date = new Date();
+    await routeRequest(message, container);
+
     // guarantee the server's response is ready to be sent
     if (message.response.writable) {
         message.response.end();
     }
 
-    logRequest(message.request, message.response, container.logger);
+    logRequest(message.request, message.response, container.logger, date);
 }
 
 /**
  * @param {http.IncomingMessage} request
  * @param {http.ServerResponse} response
  * @param {Logger} logger
+ * @param {Date} date
  */
-function logRequest(request, response, logger) {
-    const date = new Date().toISOString();
+function logRequest(request, response, logger, date) {
+    date = date.toISOString();
     const status = response.statusCode;
     const method = request.method;
     const url = request.url;
     const ip = request.socket.remoteAddress;
-    logger.log(`${date} ${status} ${method} ${url} ${ip}`);
+    logger.log(`${date} [${status}] [${method}] ${url} ${ip}`);
 }
 
 exports.runServer = runServer;

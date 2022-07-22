@@ -40,6 +40,7 @@ function writeJsonError(error, httpMessage) {
  */
 function writeHtmlError(error, httpMessage, generator) {
     const html = generator.generate(error);
+    httpMessage.response.setHeader("Content-Type", "text/html");
     httpMessage.response.write(html);
 }
 
