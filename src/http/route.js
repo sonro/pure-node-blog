@@ -37,13 +37,17 @@ async function routeApi(message, container) {}
  */
 function routePublic(message, container) {
     let url = message.request.url.toLowerCase();
+    let ext = path.extname(url);
+    if (!ext) {
+        url += "/";
+    }
     if (url.endsWith("/")) {
         url += "index.html";
+        ext = ".html";
     }
     const resolvedPath = path.resolve(url);
     const contents = container.publicAssets[resolvedPath];
     if (contents) {
-        const ext = path.extname(url);
         message.response.setHeader(
             "Content-Type",
             EXT_MAP[ext] || "text/plain"
