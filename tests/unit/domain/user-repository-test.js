@@ -19,26 +19,26 @@ exports.testNewRepoNoFile = async () => {
 exports.testGetPassword = async () => {
     const repo = await createInitRepo();
     const _pass = repo.password;
-}
+};
 
 exports.testGetDataPath = async () => {
     const repo = await createInitRepo();
     const _dataPath = repo.dataPath;
-}
+};
 
 exports.testSetPasswordDirectFail = async () => {
     const repo = await createInitRepo();
     const initPass = repo.password;
     repo.password = "test";
     assert.equal(repo.password, initPass);
-}
+};
 
 exports.testSetDataPathDirectFail = async () => {
     const repo = await createInitRepo();
     const initDataPath = repo.dataPath;
     repo.dataPath = "test";
     assert.equal(repo.dataPath, initDataPath);
-}
+};
 
 exports.testNewRepoExistingFile = async () => {
     const data = createDirtyData();
