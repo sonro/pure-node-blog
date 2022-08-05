@@ -12,14 +12,14 @@ const {
     HTML_ERROR_TEMPLATE,
 } = require("../../utility/http-error");
 const {
-    createTestMessageJson,
+    createTestMessagePostJson,
     getResponseDataFromJsonMessage,
     createTestMessage,
     getResponseBodyFromMessage,
 } = require("../../utility/http-message.js");
 
 exports.testBadRequestJson = () => {
-    const message = createTestMessageJson({});
+    const message = createTestMessagePostJson({});
     const reason = "Property missing: name";
     const error = HttpError.badRequest(reason);
 
@@ -43,7 +43,7 @@ exports.testNotFoundHtml = () => {
 };
 
 exports.testDirectInternalErrorJson = () => {
-    const message = createTestMessageJson({});
+    const message = createTestMessagePostJson({});
     const error = new Error("This is an internal error");
     const status = 500;
 
@@ -53,7 +53,7 @@ exports.testDirectInternalErrorJson = () => {
 };
 
 exports.testDirectInternalErrorDebugJson = () => {
-    const message = createTestMessageJson({});
+    const message = createTestMessagePostJson({});
     const errMsg = "This is an internal error";
     const error = new Error(errMsg);
     const status = 500;

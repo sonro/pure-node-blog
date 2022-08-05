@@ -1,7 +1,7 @@
 const assert = require("assert");
 const {
     createTestMessage,
-    createTestMessageJson,
+    createTestMessagePostJson,
 } = require("../../utility/http-message.js");
 
 exports.testWantsJsonTrue = () => {
@@ -44,7 +44,7 @@ exports.testJson = () => {
 
 exports.testPostJsonData = () => {
     const data = { name: "Test Name" };
-    const message = createTestMessageJson(data);
+    const message = createTestMessagePostJson(data);
     assert.equal(message.requestBody, JSON.stringify(data));
     assert.equal(message.requestData.name, data.name);
 };

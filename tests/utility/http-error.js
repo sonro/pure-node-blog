@@ -38,7 +38,9 @@ function createCombinedMessage(status, originalMessage) {
     return `${http.STATUS_CODES[status]}: ${originalMessage}`;
 }
 
-exports.createCausedError = createCausedError;
-exports.runFunctionInDebugEnv = runFunctionInDebugEnv;
-exports.createCombinedMessage = createCombinedMessage;
-exports.HTML_ERROR_TEMPLATE = HTML_ERROR_TEMPLATE;
+module.exports = {
+    createCausedError,
+    runFunctionInDebugEnv,
+    createCombinedMessage,
+    HTML_ERROR_TEMPLATE,
+};

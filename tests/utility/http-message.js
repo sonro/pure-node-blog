@@ -58,7 +58,7 @@ function createTestMessagePostJson(data) {
 }
 
 /**
- * @param {HttpMessage} message 
+ * @param {HttpMessage} message
  * @returns {Object}
  */
 function getResponseDataFromJsonMessage(message) {
@@ -67,7 +67,7 @@ function getResponseDataFromJsonMessage(message) {
 }
 
 /**
- * @param {HttpMessage} message 
+ * @param {HttpMessage} message
  * @returns {string}
  */
 function getResponseBodyFromMessage(message) {
@@ -126,8 +126,10 @@ function urlFromOptions(options) {
     return url;
 }
 
-exports.createTestMessage = createTestMessage;
-exports.createTestMessageJson = createTestMessagePostJson;
-exports.TestMessageOptions = TestMessageOptions;
-exports.getResponseDataFromJsonMessage = getResponseDataFromJsonMessage;
-exports.getResponseBodyFromMessage = getResponseBodyFromMessage;
+module.exports = {
+    createTestMessage,
+    createTestMessagePostJson,
+    TestMessageOptions,
+    getResponseDataFromJsonMessage,
+    getResponseBodyFromMessage,
+};

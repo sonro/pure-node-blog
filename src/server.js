@@ -60,5 +60,7 @@ function logRequest(request, response, logger, date) {
     logger.log(`${date} [${status}] [${method}] ${url} ${ip}`);
 }
 
-exports.runServer = runServer;
-exports.handleRequest = handleRequest;
+module.exports = {
+    runServer,
+    handleRequest,
+};
