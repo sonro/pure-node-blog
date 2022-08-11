@@ -7,7 +7,7 @@ const path = require("path");
 async function main() {
     let filter = null;
     if (process.argv.length == 3) {
-        filter = process.argv[2];
+        filter = process.argv[2].toLowerCase();
     }
 
     const suites = loadTestSuites();
@@ -16,7 +16,7 @@ async function main() {
 
     for (const suite of suites) {
         for (const [name, test] of Object.entries(suite.tests)) {
-            if (filter && name != filter) {
+            if (filter && !name.toLowerCase().includes(filter)) {
                 continue;
             }
             try {
