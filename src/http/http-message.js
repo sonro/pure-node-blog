@@ -92,4 +92,4 @@ function dataFromRequestBody(req, body) {
     return {};
 }
 
-exports.HttpMessage = HttpMessage;
+module.exports = HttpMessage;

@@ -1,5 +1,5 @@
-const { ErrorPageGenerator } = require("./error-page-generator");
-const { Logger } = require("./logger");
+const ErrorPageGenerator = require("./error-page-generator");
+const Logger = require("./logger");
 
 /**
  * Application services for use in server controllers.
@@ -32,4 +32,4 @@ class ServiceContainer {
     }
 }
 
-exports.ServiceContainer = ServiceContainer;
+module.exports = ServiceContainer;

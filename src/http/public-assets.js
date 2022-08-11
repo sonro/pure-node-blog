@@ -31,4 +31,6 @@ async function* yieldFiles(dirPath) {
     }
 }
 
-exports.loadPublicAssets = loadPublicAssets;
+module.exports = {
+    loadPublicAssets,
+};

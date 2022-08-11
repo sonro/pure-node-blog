@@ -1,5 +1,5 @@
 const http = require("http");
-const { HttpError } = require("../http/http-error");
+const HttpError = require("../http/http-error");
 
 /**
  * Generate an error page from a template
@@ -34,4 +34,4 @@ function createTitle(httpError) {
     return `${httpError.status} ${http.STATUS_CODES[httpError.status]}`;
 }
 
-exports.ErrorPageGenerator = ErrorPageGenerator;
+module.exports = ErrorPageGenerator;

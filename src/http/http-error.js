@@ -112,4 +112,4 @@ function httpMessageFromStatus(status, message = null) {
     return output;
 }
 
-exports.HttpError = HttpError;
+module.exports = HttpError;

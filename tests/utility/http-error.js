@@ -1,5 +1,5 @@
 const http = require("http");
-const { HttpError } = require("../../src/http/http-error");
+const HttpError = require("../../src/http/http-error");
 
 const HTML_ERROR_TEMPLATE = `<!DOCTYPE html>
 <html lang="en">

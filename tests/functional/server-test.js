@@ -3,11 +3,9 @@ const http = require("http");
 const path = require("path");
 const { loadPublicAssets } = require("../../src/http/public-assets.js");
 const { runServer } = require("../../src/server.js");
-const { ServiceContainer } = require("../../src/service/container.js");
-const {
-    ErrorPageGenerator,
-} = require("../../src/service/error-page-generator.js");
-const { Logger } = require("../../src/service/logger.js");
+const ServiceContainer = require("../../src/service/container.js");
+const ErrorPageGenerator = require("../../src/service/error-page-generator.js");
+const Logger = require("../../src/service/logger.js");
 const { HTML_ERROR_TEMPLATE } = require("../utility/http-error.js");
 
 const TEST_PORT = 3003;

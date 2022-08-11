@@ -2,8 +2,8 @@ const os = require("os");
 const fs = require("fs/promises");
 const path = require("path");
 const assert = require("assert");
-const { UserRepository } = require("../../../src/domain/user-repository");
-const { constants: fsConst, write, readFileSync } = require("fs");
+const UserRepository = require("../../../src/domain/user-repository");
+const { constants: fsConst, readFileSync } = require("fs");
 
 exports.testNewRepoNoFile = async () => {
     const dataPath = await createTmpFilePath();

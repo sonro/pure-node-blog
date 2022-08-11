@@ -1,9 +1,7 @@
 const assert = require("assert");
 const http = require("http");
-const { HttpError } = require("../../../src/http/http-error");
-const {
-    ErrorPageGenerator,
-} = require("../../../src/service/error-page-generator");
+const HttpError = require("../../../src/http/http-error");
+const ErrorPageGenerator = require("../../../src/service/error-page-generator");
 
 exports.testTitleReplacement = () => {
     const template = "START{{title}}END";

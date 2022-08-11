@@ -1,11 +1,9 @@
 const assert = require("assert");
 const http = require("http");
 const { handleError } = require("../../../src/http/error");
-const { HttpError } = require("../../../src/http/http-error");
-const { HttpMessage } = require("../../../src/http/http-message");
-const {
-    ErrorPageGenerator,
-} = require("../../../src/service/error-page-generator");
+const HttpError = require("../../../src/http/http-error");
+const HttpMessage = require("../../../src/http/http-message");
+const ErrorPageGenerator = require("../../../src/service/error-page-generator");
 const {
     createCombinedMessage,
     runFunctionInDebugEnv,

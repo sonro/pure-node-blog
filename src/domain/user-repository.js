@@ -108,4 +108,4 @@ function createDataFile(dataPath) {
     writeFileSync(dataPath, data, { mode: 0o600 });
 }
 
-exports.UserRepository = UserRepository;
+module.exports = UserRepository;

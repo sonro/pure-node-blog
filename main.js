@@ -1,8 +1,8 @@
 const path = require("path");
-const { Logger } = require("./src/service/logger.js");
-const { ServiceContainer } = require("./src/service/container.js");
+const Logger = require("./src/service/logger.js");
+const ServiceContainer = require("./src/service/container.js");
 const { runServer } = require("./src/server.js");
-const { ErrorPageGenerator } = require("./src/service/error-page-generator.js");
+const ErrorPageGenerator = require("./src/service/error-page-generator.js");
 const { HTML_ERROR_TEMPLATE } = require("./tests/utility/http-error.js");
 const { loadPublicAssets } = require("./src/http/public-assets.js");
 

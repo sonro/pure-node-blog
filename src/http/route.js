@@ -1,8 +1,8 @@
-const { ServiceContainer } = require("../service/container");
-const { HttpMessage } = require("./http-message");
+const ServiceContainer = require("../service/container");
+const HttpMessage = require("./http-message");
 const path = require("path");
 const { handleError } = require("./error");
-const { HttpError } = require("./http-error");
+const HttpError = require("./http-error");
 
 const API_ROUTE_PREFIX = "/api";
 
@@ -73,4 +73,4 @@ const EXT_MAP = {
     ".doc": "application/msword",
 };
 
-exports.routeRequest = routeRequest;
+module.exports = { routeRequest };

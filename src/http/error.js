@@ -1,6 +1,6 @@
-const { HttpMessage } = require("./http-message");
-const { HttpError } = require("./http-error");
-const { ErrorPageGenerator } = require("../service/error-page-generator");
+const HttpMessage = require("./http-message");
+const HttpError = require("./http-error");
+const ErrorPageGenerator = require("../service/error-page-generator");
 
 /**
  * @param {HttpError|Error} error
@@ -44,4 +44,4 @@ function writeHtmlError(error, httpMessage, generator) {
     httpMessage.response.write(html);
 }
 
-exports.handleError = handleError;
+module.exports = { handleError };

@@ -2,7 +2,7 @@ const { Stream } = require("stream");
 
 class Logger {
     /**
-     * @param  {...Stream} streams 
+     * @param  {...Stream} streams
      */
     constructor(...streams) {
         this.streams = streams;
@@ -17,7 +17,7 @@ class Logger {
     }
 
     /**
-     * @param {string} message 
+     * @param {string} message
      */
     async log(message) {
         for (const stream of this.streams) {
@@ -48,7 +48,7 @@ function logToStream(message, stream) {
                 resolve();
             }
         });
-    }); 
+    });
 }
 
-exports.Logger = Logger;
+module.exports = Logger;
